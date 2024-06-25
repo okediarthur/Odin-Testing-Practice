@@ -51,3 +51,49 @@ const calculator = (function() {
     return {add, subtract, multiply, divide}
 })()
 
+function caesarCipher(string, rots){
+    if((typeof string === 'string' || string instanceof String) && Number.isInteger(rots)){
+        result = "";
+        for(let i = 0; i < string.length; i++){
+            const distance = "a".charCodeAt(0) - "A".charCodeAt(0);
+            if(string.charAt(i) >= 'a' && string.charAt(i) <= 'z'){
+                let finalValue = string.charCodeAt(i) + rots;
+                if(finalValue > "z".charCodeAt(0)) finalValue -= 26;
+                result += String.fromCharCode(finalValue);
+            } else if(string.charAt(i) >= 'A' && string.charAt(i) <= 'Z'){
+                let finalValue = string.charCodeAt(i) + rots;
+                if(finalValue > "Z".charCodeAt(0)) finalValue -= 26;
+                result += String.fromCharCode(finalValue);
+            }
+            else result += string.charAt(i);
+        }
+        return result;
+    }
+    else {
+        throw new TypeError("Wrong type in input params!");
+    }
+}
+
+function analyzeArray(arr){
+    if(arr.length === 0){
+        throw Error("Empty aarray passed");
+    }
+    let sum = 0;
+    let min = arr[0];
+    let max = arr[0];
+    arr.forEach((element) => {
+        sum += element;
+        if(element < min) min = element;
+        if(element > max) max = element;
+    });
+    const length = arr.length
+    object = {
+        average: (sum / length),
+        min,
+        max,
+        length,
+    }
+    return object;
+}
+
+module.exports = {capitalize, reverseString, calculator, caesarCipher, analyzeArray};
